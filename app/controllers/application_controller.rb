@@ -1,3 +1,5 @@
+require 'pry'
+
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
 
@@ -15,5 +17,29 @@ class ApplicationController < Sinatra::Base
       } }
     })
   end
+
+  get '/reviews/:id' do
+    review = Review.find(params[:id])
+    review.to_json 
+  end 
+
+  delete '/reviews/:id' do 
+    # find the review using the ID 
+    review = Review.find(params[:id])
+    # delete the review 
+    review.destroy 
+    # send a response with the deleted review as JSON 
+    review.to_json 
+  end 
+
+  # fetch(`http://localhost:9292/reviews/1`, {
+  #   method: "DELETE",
+  # });
+
+  post '/reviews' do 
+    binding.pry 
+    # Access the data in the body of the request
+    # Use that data to create a new review in the database
+    # Send a response with newly created review as JSON 
 
 end
